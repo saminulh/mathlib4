@@ -105,7 +105,15 @@ lemma smooth_compact_integral_tendsto_iff_compact_integral_tendsto
   --   (𝓝 (∫ (ω : ℝ), f ω ∂↑(P.map hZ.aemeasurable)))
   := sorry
 
-theorem smooth_compact_clt
+lemma sum_of_indep_gaussians_is_gaussian
+    (P : ProbabilityMeasure Ω)
+    (hX : ∀ n, Measurable (X n))
+    (hgauss: ∀ n, P.map (hX n).aemeasurable = stdGaussian)
+    (hindep : iIndepFun X P):
+    ∀ n, P.map (aemeasurable_invSqrtMulSum n hX) = stdGaussian
+    := sorry
+
+lemma smooth_compact_clt
     (P : ProbabilityMeasure Ω)
     (hX : ∀ n, Measurable (X n))
     (h0 : P[X 0] = 0) (h1 : P[X 0 ^ 2] = 1)
