@@ -3,6 +3,7 @@ Copyright (c) 2024 Thomas Zhu. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Thomas Zhu, Rémy Degenne
 -/
+import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
 import Mathlib.MeasureTheory.Measure.Tight
 import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
 import Mathlib.Probability.Distributions.Gaussian
@@ -112,6 +113,14 @@ lemma sum_of_indep_gaussians_is_gaussian
     (hindep : iIndepFun X P):
     ∀ n, P.map (aemeasurable_invSqrtMulSum n hX) = stdGaussian
     := sorry
+
+lemma taylor_approx
+   {f : ℝ → ℝ}(hfsmooth: ContDiff ℝ ⊤ f) (hfcompact: HasCompactSupport f):
+   ∀ ε : ℝ, ε > 0 → ∃ δ C : ℝ, δ > 0 ∧ (∀ x y : ℝ,
+     (|y| ≤ δ → |f (x+y) - f (x) - (deriv f x) * y- (iteratedDeriv 2 f x) * y^2/2| ≤ ε * y^2)
+     ∧ |f (x+y) - f (x) - (deriv f x) * y- (iteratedDeriv 2 f x) * y^2/2| ≤ C * y^2
+   )
+   := sorry
 
 lemma smooth_compact_clt
     (P : ProbabilityMeasure Ω)
