@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Lorenzo Luccioli, Rémy Degenne, Alexander Bentkamp
 -/
 import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
+import Mathlib.Analysis.Convolution
 import Mathlib.Probability.Moments.Basic
 
 /-!
@@ -351,10 +352,30 @@ section Independence
 
 variable {Ω : Type} [MeasureSpace Ω]
 
-variable {μ₁ : ℝ} {μ₂ : ℝ} {v₁ : ℝ≥0}  {v₂ : ℝ≥0}
+open Convolution
 
-lemma indep_gaussianReal_add_indep_gaussianReal {X : Ω → ℝ} {Y : Ω → ℝ}
-  (hX : ℙ.map X = gaussianReal μ₁ v₁) (hY : ℙ.map Y = gaussianReal μ₂ v₂)
+/- Test Documentation -/
+lemma gaussian_pdf_conv_gaussian_pdf
+    {μ₁ : ℝ} {μ₂ : ℝ} {v₁ : ℝ≥0}  {v₂ : ℝ≥0}:
+    (gaussianPDFReal μ₁ v₁) ⋆ (gaussianPDFReal μ₂ v₂) = gaussianPDFReal (μ₁ + μ₂) (v₁ + v₂) := by
+  sorry
+
+lemma indep_gaussianReal_add_gaussianReal
+    {μ₁ : ℝ} {μ₂ : ℝ} {v₁ : ℝ≥0}  {v₂ : ℝ≥0}
+    {X : Ω → ℝ} {Y : Ω → ℝ}
+    (hX : Measure.map X ℙ = gaussianReal μ₁ v₁)
+    (hY : Measure.map Y ℙ = gaussianReal μ₂ v₂)
+    (hXY : IndepFun X Y) :
+    Measure.map (fun ω ↦ X ω + Y ω) ℙ = gaussianReal (μ₁ + μ₂) (v₁ + v₂) := by
+  sorry
+
+lemma indep_sum_gaussianReal {n : ℕ}
+    {μ : Fin n → ℝ} {v : Fin n → ℝ≥0} {X : Fin n → Ω → ℝ}
+    (hX : ∀ i, Measure.map (X i) ℙ = gaussianReal (μ i) (v i))
+    (inindep : iIndepFun X) :
+    Measure.map (fun ω ↦ ∑ i : Fin n, X i ω) ℙ
+    = gaussianReal (∑ i : Fin n, μ i) (∑ i : Fin n, v i) := by
+  sorry
 
 end Independence
 
@@ -390,3 +411,5 @@ theorem cgf_gaussianReal (hX : p.map X = gaussianReal μ v) (t : ℝ) :
 end GaussianReal
 
 end ProbabilityTheory
+
+/- TEST COMMENT! -/
