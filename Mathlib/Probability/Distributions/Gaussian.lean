@@ -366,14 +366,14 @@ lemma indep_gaussianReal_add_gaussianReal
     (hX : Measure.map X ℙ = gaussianReal μ₁ v₁)
     (hY : Measure.map Y ℙ = gaussianReal μ₂ v₂)
     (hXY : IndepFun X Y) :
-    Measure.map (fun ω ↦ X ω + Y ω) ℙ = gaussianReal (μ₁ + μ₂) (v₁ + v₂) := by
+    Measure.map (X + Y) ℙ = gaussianReal (μ₁ + μ₂) (v₁ + v₂) := by
   sorry
 
 lemma indep_sum_gaussianReal {n : ℕ}
     {μ : Fin n → ℝ} {v : Fin n → ℝ≥0} {X : Fin n → Ω → ℝ}
     (hX : ∀ i, Measure.map (X i) ℙ = gaussianReal (μ i) (v i))
     (inindep : iIndepFun X) :
-    Measure.map (fun ω ↦ ∑ i : Fin n, X i ω) ℙ
+    Measure.map (∑ i : Fin n, X i) ℙ
     = gaussianReal (∑ i : Fin n, μ i) (∑ i : Fin n, v i) := by
   sorry
 
