@@ -347,6 +347,17 @@ lemma gaussianReal_mul_const {X : Ω → ℝ} (hX : Measure.map X ℙ = gaussian
 
 end Transformations
 
+section Independence
+
+variable {Ω : Type} [MeasureSpace Ω]
+
+variable {μ₁ : ℝ} {μ₂ : ℝ} {v₁ : ℝ≥0}  {v₂ : ℝ≥0}
+
+lemma indep_gaussianReal_add_indep_gaussianReal {X : Ω → ℝ} {Y : Ω → ℝ}
+  (hX : ℙ.map X = gaussianReal μ₁ v₁) (hY : ℙ.map Y = gaussianReal μ₂ v₂)
+
+end Independence
+
 open Measurable Real
 
 variable {Ω : Type*} {mΩ : MeasurableSpace Ω} {p : Measure Ω} {μ : ℝ} {v : ℝ≥0} {X : Ω → ℝ}
