@@ -122,6 +122,13 @@ lemma taylor_approx
    )
    := sorry
 
+example (a : ℕ → ℝ) (b : ℝ) :
+    Tendsto (fun n => a n - b) atTop (𝓝 0) → Tendsto a atTop (𝓝 b) := by
+  intro h
+  apply fun h1 ↦ (Tendsto.add h1 (tendsto_const_nhds (x := b))) at h
+  simp at h
+  exact h
+
 lemma smooth_compact_clt
     (P : ProbabilityMeasure Ω)
     (hX : ∀ n, Measurable (X n))
@@ -129,7 +136,9 @@ lemma smooth_compact_clt
     (hindep : iIndepFun X P) (hident : ∀ (i : ℕ), IdentDistrib (X i) (X 0) P P)
     {f : ℝ → ℝ}(hfsmooth: ContDiff ℝ ⊤ f) (hfcompact: HasCompactSupport f):
     Tendsto (fun i ↦ ∫ (ω : ℝ), f ω ∂↑(P.map (aemeasurable_invSqrtMulSum i hX))) atTop
-    (𝓝 (∫ (ω : ℝ), f ω ∂↑stdGaussian)) := sorry
+    (𝓝 (∫ (ω : ℝ), f ω ∂↑stdGaussian)) :=
+  by sorry
+
 
 theorem central_limit
     (P : ProbabilityMeasure Ω)
