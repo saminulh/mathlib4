@@ -411,5 +411,3 @@ theorem cgf_gaussianReal (hX : p.map X = gaussianReal μ v) (t : ℝ) :
 end GaussianReal
 
 end ProbabilityTheory
-
-/- TEST COMMENT! -/
