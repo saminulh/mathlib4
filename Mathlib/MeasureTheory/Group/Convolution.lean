@@ -5,6 +5,9 @@ Authors: Josha Dekker
 -/
 import Mathlib.MeasureTheory.Measure.MeasureSpace
 import Mathlib.MeasureTheory.Measure.Prod
+import Mathlib.MeasureTheory.Measure.WithDensity
+import Mathlib.MeasureTheory.Measure.Haar.Basic
+import Mathlib.Analysis.LConvolution
 
 /-!
 # The multiplicative and additive convolution of measures
@@ -89,8 +92,7 @@ theorem mconv_comm {M : Type*} [CommMonoid M] [MeasurableSpace M] [MeasurableMul
   · simp [Function.comp_def, mul_comm]
   fun_prop
 
-/-- Convolution of SFinite maps is SFinite. -/
-@[to_additive sfinite_conv_of_sfinite]
+/-- Convolution of SFinite maps is SFinite. -/ @[to_additive sfinite_conv_of_sfinite]
 instance sfinite_mconv_of_sfinite (μ : Measure M) (ν : Measure M) [SFinite μ] [SFinite ν] :
     SFinite (μ ∗ ν) := inferInstanceAs <| SFinite ((μ.prod ν).map fun (x : M × M) ↦ x.1 * x.2)
 
@@ -107,6 +109,23 @@ instance probabilitymeasure_of_probabilitymeasures_mconv (μ : Measure M) (ν : 
     [MeasurableMul₂ M] [IsProbabilityMeasure μ] [IsProbabilityMeasure ν] :
     IsProbabilityMeasure (μ ∗ ν) :=
   MeasureTheory.isProbabilityMeasure_map (by fun_prop)
+
+section Group
+open scoped ENNReal
+
+variable {G : Type*} [Group G] [MeasurableSpace G] {π : Measure G} --[IsMulLeftInvariant π]
+
+#check MeasureTheory.Measure.withDensity
+#check mlconvolution
+variable {f : G → ℝ≥0∞} {g : G → ℝ≥0∞}
+#check f ⋆ₗ[π] g
+
+@[to_additive placeholder2]
+theorem placeholder [MeasurableMul₂ G] {μ : Measure G} {ν : Measure G} {f : G → ℝ≥0∞} {g : G → ℝ≥0∞}
+    (hμ : μ = π.withDensity f) (hν : ν = π.withDensity g):
+  (μ ∗ ν) = π.withDensity (f ⋆:wₗ[π] g) := by
+
+end Group
 
 end Measure
 

@@ -1,48 +1,36 @@
 /-
 Copyright (c) 2025 David Ledvinka. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: David Ledvinka, Saminul Haque
+Authors: David Ledvinka
 -/
 import Mathlib.MeasureTheory.Group.LIntegral
 
 /-!
 # Convolution of functions using the Lebesgue Integral
 
-# Design Decisions
-
 # Main Definitions
-
-# Main Results
-
-# Notation
-
--/
-
-/-
-# TODO
-
-1. Prove that we can convert convolution of measures to convolution of densities
-
--- Probably need : lintegral_lintegral_mul
 
 -/
 
 namespace MeasureTheory
+open Measure
 open scoped ENNReal
 --open Measure
 
-variable {G : Type*} [Group G] [MeasureSpace G]
+variable {G : Type*} [Group G] [MeasurableSpace G]
 
 /-- Multiplicative convolution of functions -/
 @[to_additive lconvolution "Additive convolution of functions"]
 noncomputable def mlconvolution (f : G → ℝ≥0∞) (g : G → ℝ≥0∞) (μ : Measure G := by volume_tac):
     G → ℝ≥0∞ := fun x ↦ ∫⁻ y, (f y) * (g (y⁻¹ * x)) ∂μ
 
-/-- Scoped notation for the multiplicative convolution of functions -/
-scoped[MeasureTheory] infix:80 " ∗ " => MeasureTheory.mlconvolution
+/-- Scoped notation for the multiplicative convolution of functions with respect to a measure `μ` -/
+scoped[MeasureTheory] notation:67 f " ⋆ₗ["μ:67"] " g:66  => MeasureTheory.mlconvolution f g μ
 
-/-- Scoped notation for the additive convolution of functions -/
-scoped[MeasureTheory] infix:80 " ∗ " => MeasureTheory.lconvolution
+/-- Scoped notation for the additive convolution of functions with respect to a measure `μ` -/
+scoped[MeasureTheory] notation:67 f " ⋆ₗ["μ:67"]" g:66  => MeasureTheory.lconvolution f g μ
 
+theorem mlconvolution_def {f : G → ℝ≥0∞} {g : G → ℝ≥0∞} {μ : Measure G} {x : G} :
+    (f ⋆ₗ[μ] g) x = ∫⁻ y, (f y) * (g (y⁻¹ * x)) ∂μ := rfl
 
 end MeasureTheory
