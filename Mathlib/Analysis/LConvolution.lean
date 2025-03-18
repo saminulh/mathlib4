@@ -21,10 +21,9 @@ import Mathlib.MeasureTheory.Group.LIntegral
 /-
 # TODO
 
-1. Define MeasureTheory.MLConvolutionExistsAt f g x μ
-2. Define MeasureTheory.ConvolutionExists f g μ
-3. Develop some theory to verify the above
-4. Prove that we can convert convolution of measures to convolution of densities
+1. Prove that we can convert convolution of measures to convolution of densities
+
+-- Probably need : lintegral_lintegral_mul
 
 -/
 
